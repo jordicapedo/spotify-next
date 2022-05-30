@@ -8,28 +8,37 @@ import {
 import Image from 'next/image'
 import { signOut, useSession } from 'next-auth/react'
 import { HeartIcon, BookmarkIcon } from '@heroicons/react/solid'
+import { useEffect, useState } from 'react'
+import useSpotify from '../hooks/useSpotify'
+import { useRecoilState } from 'recoil'
+import { playlistIdState } from '../atoms/playlistAtom'
 
 function Sidebar() {
+  const spotifyApi = useSpotify()
   const { data: session, status } = useSession()
+  const [playlist, setPlaylist] = useState([])
+  const [playlistId, setPlaylistId] = useRecoilState(playlistIdState)
 
-  console.log(session)
+  //console.log('You picked playlist: ', playlistId)
+
+  useEffect(() => {
+    if (spotifyApi.getAccessToken()) {
+      spotifyApi.getUserPlaylists().then(data => {
+        setPlaylist(data.body.items)
+      })
+    }
+  }, [session, spotifyApi])
 
   return (
-    <div className="border-r border-gray-900 p-5 text-sm text-gray-500">
+    <div className="hidden h-screen flex-col border-r border-gray-900 p-5 text-xs text-gray-500 sm:max-w-[12rem] md:inline-flex lg:max-w-[15rem] lg:text-sm">
       <div className="space-y-4">
         <Image
           src="/images/spotify-logo-white.png"
-          width={152}
-          height={50}
+          width={140}
+          height={40}
           alt="Logo"
         />
-        <button
-          className="flex items-center space-x-2 hover:text-white"
-          onClick={() => signOut()}
-        >
-          <LogoutIcon className="mr-3 h-5 w-5" />
-          <p className="font-bold">Logout</p>
-        </button>
+        <hr className="border-none" />
         <button className="flex items-center space-x-2 hover:text-white">
           <HomeIcon className="mr-3 h-6 w-6" />
           <p className="font-bold">Home</p>
@@ -42,7 +51,7 @@ function Sidebar() {
           <CollectionIcon className="mr-3 h-6 w-6" />
           <p className="font-bold">Your Library</p>
         </button>
-        <hr className="border-t-[0.1px] border-gray-900" />
+        <hr className="border-none" />
         <button className="flex items-center space-x-2 hover:text-white">
           <PlusSmIcon className="mr-3 h-6 w-6 rounded-sm bg-gray-500 p-1 text-gray-800" />
           <p className="font-bold">Create Playlist</p>
@@ -57,16 +66,17 @@ function Sidebar() {
         </button>
         <hr className="border-t-[0.1px] border-gray-900" />
         {/** Playlist */}
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
+      </div>
+      <div className="space-y-4 overflow-y-scroll  pt-4 scrollbar-hide">
+        {playlist.map(playlist => (
+          <p
+            key={playlist.id}
+            onClick={() => setPlaylistId(playlist.id)}
+            className="cursor-pointer truncate hover:text-white"
+          >
+            {playlist.name}
+          </p>
+        ))}
       </div>
     </div>
   )

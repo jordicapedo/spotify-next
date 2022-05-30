@@ -5,7 +5,6 @@ function Login(providers) {
   const SpotifyLogoSrc = '/images/spotify-logo-green.png'
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center bg-black">
-      <Image src={SpotifyLogoSrc} width={202} height={68} alt="Logo" />
       {Object.values(providers).map(provider => (
         <div key={provider.spotify.name}>
           <button
