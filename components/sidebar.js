@@ -30,7 +30,7 @@ function Sidebar() {
   }, [session, spotifyApi])
 
   return (
-    <div className="hidden h-screen flex-col border-r border-gray-900 p-5 text-xs text-gray-500 sm:max-w-[12rem] md:inline-flex lg:max-w-[15rem] lg:text-sm">
+    <div className="hidden h-screen flex-col border-r border-gray-900 p-5 pb-28 text-xs text-gray-500 sm:max-w-[12rem] md:inline-flex lg:max-w-[15rem] lg:text-sm">
       <div className="space-y-4">
         <Image
           src="/images/spotify-logo-white.png"
@@ -39,30 +39,30 @@ function Sidebar() {
           alt="Logo"
         />
         <hr className="border-none" />
-        <button className="flex items-center space-x-2 hover:text-white">
+        <button className="sidebar-button">
           <HomeIcon className="mr-3 h-6 w-6" />
-          <p className="font-bold">Home</p>
+          <p className="font-semibold">Home</p>
         </button>
-        <button className="flex items-center space-x-2 hover:text-white">
+        <button className="sidebar-button">
           <SearchIcon className="mr-3 h-6 w-6" />
-          <p className="font-bold">Search</p>
+          <p className="font-semibold">Search</p>
         </button>
-        <button className="flex items-center space-x-2 hover:text-white">
+        <button className="sidebar-button">
           <CollectionIcon className="mr-3 h-6 w-6" />
-          <p className="font-bold">Your Library</p>
+          <p className="font-semibold">Your Library</p>
         </button>
         <hr className="border-none" />
-        <button className="flex items-center space-x-2 hover:text-white">
-          <PlusSmIcon className="mr-3 h-6 w-6 rounded-sm bg-gray-500 p-1 text-gray-800" />
-          <p className="font-bold">Create Playlist</p>
+        <button className="sidebar-button">
+          <PlusSmIcon className="mr-3 h-6 w-6 rounded-sm bg-[#b3b3b3] text-gray-600" />
+          <p className="font-semibold">Create Playlist</p>
         </button>
-        <button className="flex items-center space-x-2 hover:text-white">
+        <button className="sidebar-button">
           <HeartIcon className="mr-3 h-6 w-6 rounded-sm bg-gradient-to-r from-indigo-500 to-purple-500 p-1 text-white" />
-          <p className="font-bold">Like songs</p>
+          <p className="font-semibold">Like songs</p>
         </button>
-        <button className="flex items-center space-x-2 hover:text-white">
+        <button className="sidebar-button">
           <BookmarkIcon className="mr-3 h-6 w-6 rounded-sm bg-green-800 p-1 text-green-500" />
-          <p className="font-bold">Your episodes</p>
+          <p className="font-semibold">Your episodes</p>
         </button>
         <hr className="border-t-[0.1px] border-gray-900" />
         {/** Playlist */}
@@ -72,7 +72,7 @@ function Sidebar() {
           <p
             key={playlist.id}
             onClick={() => setPlaylistId(playlist.id)}
-            className="cursor-pointer truncate hover:text-white"
+            className="cursor-pointer truncate text-[#b3b3b3] hover:text-white"
           >
             {playlist.name}
           </p>

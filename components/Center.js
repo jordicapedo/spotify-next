@@ -1,4 +1,4 @@
-import { ChevronDownIcon } from '@heroicons/react/outline'
+import { ChevronDownIcon, LogoutIcon } from '@heroicons/react/outline'
 import { playlistIdState, playlistState } from 'atoms/playlistAtom'
 import useSpotify from 'hooks/useSpotify'
 import { signOut, useSession } from 'next-auth/react'
@@ -47,24 +47,26 @@ export default function Center() {
   console.log('playlist: ', playlist)
 
   return (
-    <div className="h-screen flex-grow overflow-y-scroll scrollbar-hide">
+    <div className="h-screen flex-grow overflow-y-scroll bg-[#121212] scrollbar-hide">
       <header className="absolute top-5 right-8">
         <div
           onClick={signOut}
-          className="flex cursor-pointer items-center space-x-3 rounded-full bg-[#282828] bg-opacity-80 p-[2px] pr-2 text-white hover:bg-opacity-100"
+          className="flex cursor-pointer items-center space-x-3 rounded-full bg-[#282828] bg-opacity-80 p-[2px] text-white hover:bg-opacity-100 lg:pr-2"
         >
           <img
             className="h-7 w-7 rounded-full"
             src={session?.user?.image}
             alt=""
           />
-          <h2 className="text-sm font-bold">{session?.user.name}</h2>
-          <ChevronDownIcon className="h-5 w-5" />
+          <h2 className="hidden text-sm font-bold lg:inline">
+            {session?.user.name}
+          </h2>
+          <ChevronDownIcon className=" hidden h-5 w-5 lg:inline" />
         </div>
       </header>
       <section
         className={`flex h-80 items-end
-      space-x-7 bg-gradient-to-b p-8 ${color} to-black text-white
+      space-x-7 bg-gradient-to-b p-8 ${color} to-[#121212] text-white
       `}
       >
         <img
@@ -72,11 +74,25 @@ export default function Center() {
           src={playlist?.images[0]?.url}
           alt="Playlist image"
         />
-        <div>
-          <p>PLAYLIST</p>
-          <h1 className="text-2xl font-bold md:text-3xl xl:text-5xl">
+        <div className="flex flex-col">
+          <p className="text-xs font-semibold opacity-80">PLAYLIST</p>
+          <h1 className="mb-4 text-2xl font-bold sm:text-4xl md:text-4xl xl:text-6xl">
             {playlist?.name}
           </h1>
+          <p className="opacity-50">{playlist?.description}</p>
+          <div className="text-sm">
+            <span className="font-semibold">
+              {playlist?.owner.display_name} ·
+            </span>{' '}
+            {playlist?.followers.total > 0 ? (
+              <span className="font-thin">
+                {playlist?.followers.total} "likes" · {playlist?.tracks.total}{' '}
+                songs
+              </span>
+            ) : (
+              <span className="font-thin">{playlist?.tracks.total} songs</span>
+            )}
+          </div>
         </div>
       </section>
       <div className="">

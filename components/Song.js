@@ -20,7 +20,7 @@ export default function Song({ order, track }) {
   return (
     <div
       onClick={playSong}
-      className="grid cursor-pointer grid-cols-2 rounded-xl py-4 px-5 text-[#b3b3b3] hover:bg-[#2a2a2a]"
+      className="grid cursor-pointer grid-cols-2 rounded-xl py-2 px-5 text-[#b3b3b3] hover:bg-[#2a2a2a]"
     >
       <div className="flex items-center space-x-4">
         <p>{order + 1}</p>
@@ -31,15 +31,21 @@ export default function Song({ order, track }) {
         />
 
         <div>
-          <p className="w-36 truncate text-white lg:w-64">{track.track.name}</p>
-          <p className="w-40">{track.track.artists[0].name}</p>
+          <p className="w-36 truncate font-light text-white lg:w-64">
+            {track.track.name}
+          </p>
+          <p className="w-40 text-xs font-light">
+            {track.track.artists[0].name}
+          </p>
         </div>
       </div>
       <div className="ml-auto flex items-center justify-between md:ml-0">
-        <p className="hidden w-40 truncate md:inline">
+        <p className="hidden w-40 truncate text-sm font-light md:inline">
           {track.track.album.name}
         </p>
-        <p>{millisToMinutesAndSeconds(track.track.duration_ms)}</p>
+        <p className="text-sm font-light">
+          {millisToMinutesAndSeconds(track.track.duration_ms)}
+        </p>
       </div>
     </div>
   )
