@@ -30,21 +30,16 @@ export default function Center() {
     setColor(colors[Math.floor(Math.random() * colors.length)])
   }, [playlistId])
 
-  console.log('center Picked playlist: ', playlistId)
-
   useEffect(() => {
     spotifyApi
       .getPlaylist(playlistId)
       .then(data => {
-        console.log('data:', data)
         setPlaylist(data.body)
       })
       .catch(err => {
         console.error('Something went wrong!', err)
       })
   }, [spotifyApi, playlistId])
-
-  console.log('playlist: ', playlist)
 
   return (
     <div className="h-screen flex-grow overflow-y-scroll bg-[#121212] scrollbar-hide">

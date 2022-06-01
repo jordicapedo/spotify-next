@@ -27,7 +27,6 @@ function Player() {
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
   const [volume, setVolume] = useState(50)
   const songInfo = useSongInfo()
-  console.log('songInfo: ', songInfo)
 
   const fetchCurrentInfo = () => {
     if (!songInfo) {
@@ -104,7 +103,9 @@ function Player() {
         <div className="">
           <h3 className="font-light">{songInfo?.name}</h3>
           {songInfo?.artists.map(artist => (
-            <span className="text-xs text-[#b3b3b3]">{artist.name} </span>
+            <span key={artist.name} className="text-xs text-[#b3b3b3]">
+              {artist.name}{' '}
+            </span>
           ))}
         </div>
       </div>

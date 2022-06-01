@@ -23,13 +23,12 @@ export default function Song({ order, track }) {
       className="grid cursor-pointer grid-cols-2 rounded-xl py-2 px-5 text-[#b3b3b3] hover:bg-[#2a2a2a]"
     >
       <div className="flex items-center space-x-4">
-        <p>{order + 1}</p>
+        <p className="">{order + 1}</p>
         <img
           className="h-10 w-10"
           src={track.track.album.images[0]?.url}
           alt=""
         />
-
         <div>
           <p className="w-36 truncate font-light text-white lg:w-64">
             {track.track.name}
