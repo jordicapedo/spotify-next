@@ -1,6 +1,6 @@
 import { playlistState } from 'atoms/playlistAtom'
 import { useRecoilValue } from 'recoil'
-import Song from '@components/Song'
+import Song from '../components/Song'
 
 export default function Songs() {
   const playlist = useRecoilValue(playlistState)

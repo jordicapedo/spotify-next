@@ -5,7 +5,7 @@ import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import Songs from '@components/Songs'
+import Songs from '../components/Songs'
 
 const colors = [
   'from-indigo-500',
