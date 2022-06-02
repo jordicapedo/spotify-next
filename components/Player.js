@@ -1,4 +1,4 @@
-import { currentTrackIdState, isPlayingState } from '../atoms/atomSong'
+import { currentTrackIdState, isPlayingState } from '../atoms/songAtom'
 import useSpotify from '../hooks/useSpotify'
 import useSongInfo from '../hooks/useSongInfo'
 import { useSession } from 'next-auth/react'
@@ -31,11 +31,9 @@ function Player() {
   const fetchCurrentInfo = () => {
     if (!songInfo) {
       spotifyApi.getMyCurrentPlayingTrack().then(data => {
-        console.log('Now playing: ', data.body?.item)
         setCurrentTrackId(data.body?.item?.id)
 
         spotifyApi.getMyCurrentPlaybackState().then(data => {
-          console.log('Currently playing: ', data.body)
           setIsPlaying(data.body?.is_playing)
         })
       })
@@ -95,19 +93,23 @@ function Player() {
     <div className="grid h-24 grid-cols-3 bg-[#181818] px-2 text-xs text-white md:px-8 md:text-base">
       {/* Left */}
       <div className="flex items-center space-x-4 truncate">
-        <img
-          className="hidden h-14 w-14 md:inline"
-          src={songInfo?.album.images[0]?.url}
-          alt=""
-        />
-        <div className="">
-          <h3 className="font-light">{songInfo?.name}</h3>
-          {songInfo?.artists.map(artist => (
-            <span key={artist.name} className="text-xs text-[#b3b3b3]">
-              {artist.name}{' '}
-            </span>
-          ))}
-        </div>
+        {isPlaying && (
+          <>
+            <img
+              className="hidden h-14 w-14 md:inline"
+              src={songInfo?.album.images[0]?.url}
+              alt=""
+            />
+            <div className="">
+              <h3 className="font-light">{songInfo?.name}</h3>
+              {songInfo?.artists.map(artist => (
+                <span key={artist.name} className="text-xs text-[#b3b3b3]">
+                  {artist.name}{' '}
+                </span>
+              ))}
+            </div>
+          </>
+        )}
       </div>
       {/* Center */}
       <div className="flex items-center justify-evenly">

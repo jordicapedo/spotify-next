@@ -1,5 +1,5 @@
 import useSpotify from '../hooks/useSpotify'
-import { currentTrackIdState } from '../atoms/atomSong'
+import { currentTrackIdState } from '../atoms/songAtom'
 import { useRecoilState } from 'recoil'
 import { useState, useEffect } from 'react'
 

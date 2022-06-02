@@ -17,8 +17,8 @@ export async function middleware(req) {
   }
 
   // if token exist redirect to home page
-  if (token) {
-    return NextResponse.next()
+  if (token && pathname === url.pathname) {
+    return NextResponse.rewrite('/')
   }
 
   // redirect to login page if the user is not logged in and they are requesting a protected routeing a protected route
